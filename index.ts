@@ -20,7 +20,7 @@ async function main() {
     context,
   });
 
-  const { url } = await server.listen({ port: process.env.PORT || 3000 });
+  const { url } = await server.listen({ port: process.env.PORT || 5000 });
 
   console.log(`Server is running on ${url}`);
 }
