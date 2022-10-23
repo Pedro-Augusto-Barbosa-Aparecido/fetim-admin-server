@@ -6,6 +6,9 @@ import { buildSchema } from "type-graphql";
 import { UserResolver } from "./src/resolvers/UserResolver";
 import { context } from "./context";
 
+import dotenv from "dotenv";
+dotenv.config();
+
 async function main() {
   const schema = await buildSchema({
     resolvers: [UserResolver],
@@ -17,7 +20,7 @@ async function main() {
     context,
   });
 
-  const { url } = await server.listen();
+  const { url } = await server.listen({ port: process.env.PORT || 3000 });
 
   console.log(`Server is running on ${url}`);
 }
