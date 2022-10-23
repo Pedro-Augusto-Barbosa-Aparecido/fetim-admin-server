@@ -6,7 +6,9 @@
   "author": "Pedro-Augusto-Barbosa-Aparecido <77130441+Pedro-Augusto-Barbosa-Aparecido@users.noreply.github.com>",
   "license": "MIT",
   "scripts": {
-    "dev": "tsnd --respawn --transpile-only ./index.ts"
+    "dev": "tsnd --respawn --transpile-only ./index.ts",
+    "build": "tsc .",
+    "start": "primsa generate"
   },
   "dependencies": {
     "@prisma/client": "^4.5.0",
