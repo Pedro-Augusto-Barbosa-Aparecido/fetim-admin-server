@@ -8,6 +8,7 @@ type Mutation {
   createUser(user: UserCreateInput!): UserLogged!
   deleteUser(userID: String!): Boolean!
   login(user: UserLoginInput!): UserLogged!
+  refreshUser(token: String!): UserLogged!
   updateUser(user: UserUpdateInput!): User!
 }
 

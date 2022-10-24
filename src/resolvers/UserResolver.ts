@@ -11,7 +11,7 @@ import { User, UserLogged } from "../models/User";
 
 import bcrypt from "bcrypt";
 import { GraphQLError } from "graphql";
-import { generateToken } from "../utils/token";
+import { generateToken, getUserIdByToken } from "../utils/token";
 
 @Resolver()
 export class UserResolver {
@@ -170,5 +170,33 @@ export class UserResolver {
     });
 
     return userLogged;
+  }
+
+  @Mutation(() => UserLogged)
+  async refreshUser(@Arg("token") token: string, @Ctx() ctx: Context) {
+    try {
+      const id = await getUserIdByToken(token);
+      const user = await ctx.prisma.user.findUnique({
+        where: {
+          id,
+        },
+      });
+
+      if (!user) {
+        throw new GraphQLError("User not exist");
+      }
+
+      const userLogged = new UserLogged({
+        name: user.name,
+        email: user.email,
+        id,
+        token,
+      });
+
+      return userLogged;
+    } catch (err) {
+      console.log(err);
+      throw new GraphQLError("Invalid token!");
+    }
   }
 }
