@@ -7,11 +7,12 @@ import { UserResolver } from "./src/resolvers/UserResolver";
 import { context } from "./context";
 
 import dotenv from "dotenv";
+import { RoleResolver } from "./src/resolvers/RoleResolver";
 dotenv.config();
 
 async function main() {
   const schema = await buildSchema({
-    resolvers: [UserResolver],
+    resolvers: [UserResolver, RoleResolver],
     emitSchemaFile: path.resolve(__dirname, "./src/schema.gql"),
   });
 

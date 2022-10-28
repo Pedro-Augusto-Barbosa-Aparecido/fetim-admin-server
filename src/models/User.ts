@@ -1,7 +1,9 @@
 import "reflect-metadata";
 
 import { IsEmail } from "class-validator";
-import { Field, ID, ObjectType } from "type-graphql";
+import { Field, ObjectType } from "type-graphql";
+import { BaseModel } from "./generics/BaseModel";
+import { Role } from "./Role";
 
 export interface UserLoggedConstructorParams {
   name: string;
@@ -11,16 +13,16 @@ export interface UserLoggedConstructorParams {
 }
 
 @ObjectType()
-export class User {
-  @Field((type) => ID)
-  id: string;
-
+export class User extends BaseModel {
   @Field()
   @IsEmail()
   email: string;
 
   @Field((type) => String, { nullable: true })
   name: string;
+
+  @Field()
+  role: Role[];
 }
 
 @ObjectType()

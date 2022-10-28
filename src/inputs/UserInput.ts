@@ -1,5 +1,6 @@
 import { IsEmail } from "class-validator";
 import { Field, InputType } from "type-graphql";
+import { Role } from "../models/Role";
 
 @InputType()
 export class UserCreateInput {
@@ -11,6 +12,9 @@ export class UserCreateInput {
 
   @Field()
   password: string;
+
+  @Field({ nullable: true, defaultValue: [] })
+  roles: Role[];
 }
 
 @InputType()
@@ -33,6 +37,9 @@ export class UserUpdateInput {
 
   @Field()
   id: string;
+
+  @Field({ nullable: true, defaultValue: [] })
+  roles: Role[];
 }
 
 @InputType()

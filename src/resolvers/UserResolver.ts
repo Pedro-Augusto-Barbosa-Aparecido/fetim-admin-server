@@ -45,6 +45,11 @@ export class UserResolver {
     const newUser = await ctx.prisma.user.create({
       data: {
         ...user,
+        role: user.roles
+          ? {
+              connect: [...user.roles],
+            }
+          : undefined,
         password: encryptPassword,
       },
     });
@@ -101,6 +106,12 @@ export class UserResolver {
       data: {
         name: user.name || undefined,
         email: user.email || undefined,
+        role: user.roles
+          ? {
+              connect: [...user.roles],
+            }
+          : undefined,
+        updatedAt: new Date(),
       },
     });
 
